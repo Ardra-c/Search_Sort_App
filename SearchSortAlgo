@@ -1,0 +1,168 @@
+package com.kod.searchandsort;
+
+import java.util.Scanner;
+
+public class SearchingSortingAlgos {
+	Scanner scan=new Scanner(System.in);
+	public int[] chooseSearchOrSort(int arr[]) {
+	System.out.println("Choose search or sort:\n 1.Press 1 for Search\n 2.Press 2 for Sort\n 3.Press 0 to exit");
+	int ch=scan.nextInt();
+	switch(ch) {
+	case 1:
+		System.out.println("Choose search:\n 1.Press a for LinearSeach \n 2.Press b for BinarySearch");
+		char ch1=scan.next().charAt(0);
+		
+		switch(ch1) {
+		case 'a':
+			System.out.println("Enter key to search:");
+			int key1=scan.nextInt();
+			int lin=linearSearch(arr, key1);
+			if(lin>=0) {
+				System.out.println("Key found at index "+lin);
+			}else {
+				System.out.println("Key "+key1+" not found!");
+			}
+			break;
+		case 'b':
+			System.out.println("Choose Sort \n a.Press b for Bubble sort \n b.Press s for Selection sort \n c.Press i for Insertion Sort");
+			char ch2=scan.next().charAt(0);
+			switch(ch2) {
+			case 'b':
+				int bub[]=BubbleSort(arr);
+				display(arr);
+				break;
+			case 's':
+				int sel[]=SelectionSort(arr);
+				System.out.println("Sorted array:");
+				for(int i:sel) {
+					System.out.print(i+" ");
+				}
+				break;
+			case 'i':
+				int ins[]=InsertionSort(arr);
+				display(arr);
+				break;
+			default:
+				int bub2[]=BubbleSort(arr);
+				display(arr);
+			}
+			System.out.println();
+			
+			System.out.println("Enter key to search:");
+			int key2=scan.nextInt();
+			int bin=BinarySearch(arr, key2);
+			if(bin>=0) {
+				System.out.println("Key fount at index "+bin);
+			}else {
+				System.out.println("Key "+key2+" not found!");
+			}
+			break;
+			default:
+				int key3=scan.nextInt();
+				int lin1=linearSearch(arr, key3);
+		}
+		break;
+	case 2:
+		System.out.println("Choose Sort \n a.Press b for Bubble sort \n b.Press s for Selection sort \n c.Press i for Insertion Sort");
+		char ch3=scan.next().charAt(0);
+		switch(ch3) {
+		case 'b':
+			int bub[]=BubbleSort(arr);
+			display(arr);
+			break;
+		case 's':
+			int sel[]=SelectionSort(arr);
+			display(arr);
+			break;
+		case 'i':
+			int ins[]=InsertionSort(arr);
+			display(arr);
+			break;
+		default:
+			int bub2[]=BubbleSort(arr);
+			display(arr);
+		}
+		break;
+	default:
+		System.exit(0);
+		
+	}
+	return arr;
+}
+	
+	public int linearSearch(int arr[],int key) {
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]==key) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int BinarySearch(int arr[],int key) {
+		int low=0;
+		int high=arr.length-1;
+		while(low<=high) {
+			int mid=(low+high)/2;
+			if(key==arr[mid]) {
+				return mid;
+			}else if(key>arr[mid]) {
+				low=mid+1;
+			}else {
+				high=mid-1;
+			}
+		}
+		return -1;
+	}
+	
+	public int[] BubbleSort(int arr[]) {
+		for(int i=0;i<arr.length-1;i++) {
+			for(int j=0;j<arr.length-1-i;j++) {
+				if(arr[j]>arr[j+1]){
+					int temp=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+				}
+			}
+		}
+		return arr;
+	}
+	
+	public int[] SelectionSort(int arr[]) {
+		for(int i=0;i<=arr.length-2;i++) {
+		int min=arr[i];
+		int pos=i;
+		for(int j=i+1;j<=arr.length-1;j++) {
+			if(arr[j]<min) {
+				min=arr[j];
+				pos=j;
+			}
+		}
+		int temp=arr[i];
+		arr[i]=arr[pos];
+		arr[pos]=temp;
+		}
+		return arr;
+	}
+	
+	public int[] InsertionSort(int arr[]) {
+		for(int i=0;i<arr.length;i++) {
+			int item=arr[i];
+			int j=i-1;
+			while(j>=0 && arr[j]>item) {
+				arr[j+1]=arr[j];
+				j--;
+			}
+			arr[j+1]=item;
+		}
+		return arr;
+	}
+	public void display(int arr[]) {
+		System.out.println("Sorted array:");
+		for(int i:arr) {
+			System.out.print(i+" ");
+		}
+	}
+
+
+}
